@@ -2,6 +2,8 @@ package ru.bstu.iitus.vt41.BI;
 import java.util.Scanner;
 
 public final class VolleyBall extends Ball {
+    public static final int code = 0;
+
     int cost = 0;
 
     public VolleyBall() {

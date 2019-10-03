@@ -2,7 +2,11 @@ package ru.bstu.iitus.vt41.BI;
 
 import java.util.Scanner;
 
-public class Barbell extends TrainingEquipment {
+// Штанга
+public final class Barbell extends TrainingEquipment {
+    // Код предмета
+    public static final int code = 4;
+
     int weight = -1;
 
     public Barbell(){

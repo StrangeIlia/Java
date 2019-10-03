@@ -2,7 +2,10 @@ package ru.bstu.iitus.vt41.BI;
 
 import java.util.Scanner;
 
+// Теннисная ракетка
 public final class Racquet extends SportsEquipment {
+    public static final int code = 2;
+
     String  producer = "";
 
     public Racquet(){
