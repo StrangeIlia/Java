@@ -1,3 +1,5 @@
+package ru.bstu.iitus.vt41.BI;
+
 import ru.bstu.iitus.vt41.BI.Factory;
 import ru.bstu.iitus.vt41.BI.SportsEquipment;
 
