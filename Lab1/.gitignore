@@ -130,3 +130,4 @@ $RECYCLE.BIN/
 
 # End of https://www.gitignore.io/api/maven,windows,intellij
 /.idea/
+/Lab1.iml

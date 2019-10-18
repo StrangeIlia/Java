@@ -1,4 +1,5 @@
-package ru.bstu.iitus.vt41.BI;
+import ru.bstu.iitus.vt41.BI.Factory;
+import ru.bstu.iitus.vt41.BI.SportsEquipment;
 
 import java.util.Scanner;
 
@@ -30,6 +31,16 @@ public class Main {
         System.out.println("    3) Метательное копье ");
         System.out.println("    4) Штанга ");
         System.out.println("    5) Гиря ");
+
+        /*
+        Переделать фабрику!!!
+        Supplier<SportsEquipment> pred = () -> {
+            System.out.print("Введите вес гири: ");
+            SportsEquipment result = new Weight();
+            result.init(scanner);
+            return result;
+        };
+        */
 
         SportsEquipment[] inventory = null;
         System.out.print("Введите количество предметов в инвентаре: ");
