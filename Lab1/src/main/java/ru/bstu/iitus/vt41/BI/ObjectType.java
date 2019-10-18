@@ -18,4 +18,16 @@ public enum ObjectType {
     public int getIndex() {
         return index;
     }
+
+    public static ObjectType valueOf(int v){
+        switch (v){
+            case 0: return VolleyBall;
+            case 1: return TennisBall;
+            case 2: return Racquet;
+            case 3: return TrowingSpear;
+            case 4: return Barbell;
+            case 5: return Weight;
+            default: return Undefined;
+        }
+    }
 }

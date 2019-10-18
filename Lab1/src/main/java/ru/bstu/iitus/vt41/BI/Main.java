@@ -59,7 +59,7 @@ public class Main {
         for (int i = 0; i != inventory.length; ++i) {
             while (true) {
                 System.out.print("Введите id предмета: ");
-                inventory[i] = factory.create(scanner.nextInt(), scanner);
+                inventory[i] = factory.create(ObjectType.valueOf(scanner.nextInt()), scanner);
                 if (inventory[i] == null)
                     System.out.println("Неверный код предмета, введите код снова");
                 else break;
@@ -68,7 +68,7 @@ public class Main {
 
         System.out.println("Информация о всех предметах, относящихся к теннису: ");
         for (SportsEquipment e : inventory)
-            if (e.getSportType() == 1)
+            if (e.getSportType() == TypeSport.Tennis.getIndex())
                 System.out.println(e.toString());
     }
 }

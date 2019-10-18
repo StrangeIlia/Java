@@ -69,25 +69,25 @@ public class Factory {
         }
     }
 
-    Dictionary<Integer, FactoryObjects> set = new Hashtable<Integer, FactoryObjects>();
+    Dictionary<ObjectType, FactoryObjects> set = new Hashtable<ObjectType, FactoryObjects>();
 
     public Factory() {
-        set.put(Barbell.code.getIndex(), Factorys.FACTORYSBARBELL);
-        set.put(Racquet.code.getIndex(), Factorys.FACTORYSRACQUET);
-        set.put(ThrowingSpear.code.getIndex(), Factorys.FACTORYSTHROWINGSPEAR);
-        set.put(VolleyBall.code.getIndex(), Factorys.FACTORYSVOLLEYBALL);
-        set.put(Weight.code.getIndex(), Factorys.FACTORYSWEIGHT);
-        set.put(TennisBall.code.getIndex(), Factorys.FACTORYSTENNISBALL);
+        set.put(Barbell.code, Factorys.FACTORYSBARBELL);
+        set.put(Racquet.code, Factorys.FACTORYSRACQUET);
+        set.put(ThrowingSpear.code, Factorys.FACTORYSTHROWINGSPEAR);
+        set.put(VolleyBall.code, Factorys.FACTORYSVOLLEYBALL);
+        set.put(Weight.code, Factorys.FACTORYSWEIGHT);
+        set.put(TennisBall.code, Factorys.FACTORYSTENNISBALL);
     }
 
-    public SportsEquipment create(int code, Scanner scanner) {
+    public SportsEquipment create(ObjectType code, Scanner scanner) {
         FactoryObjects factory = set.get(code);
         if (factory != null)
             return factory.create(scanner);
         else return null;
     }
 
-    public SportsEquipment create(int code) {
+    public SportsEquipment create(ObjectType code) {
         return create(code, new Scanner(System.in));
     }
 }
