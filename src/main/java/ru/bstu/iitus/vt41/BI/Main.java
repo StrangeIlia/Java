@@ -26,6 +26,18 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Factory factory = new Factory();
 
+        SportsEquipment[] inventory = null;
+        System.out.print("Введите количество предметов в инвентаре: ");
+        while (true) {
+            int length = scanner.nextInt();
+            if (length <= 0)
+                System.out.println("Указан неверный размер инвентаря, введите его заново");
+            else {
+                inventory = new SportsEquipment[length];
+                break;
+            }
+        }
+
         System.out.println("Id предметов: ");
         System.out.println("    0) Волейбольный мяч ");
         System.out.println("    1) Теннисный мяч ");
@@ -43,18 +55,6 @@ public class Main {
             return result;
         };
         */
-
-        SportsEquipment[] inventory = null;
-        System.out.print("Введите количество предметов в инвентаре: ");
-        while (true) {
-            int length = scanner.nextInt();
-            if (length <= 0)
-                System.out.println("Указан неверный размер инвентаря, введите его заново");
-            else {
-                inventory = new SportsEquipment[length];
-                break;
-            }
-        }
 
         for (int i = 0; i != inventory.length; ++i) {
             while (true) {
