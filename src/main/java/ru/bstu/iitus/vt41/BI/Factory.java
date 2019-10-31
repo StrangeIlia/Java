@@ -1,70 +1,58 @@
 package ru.bstu.iitus.vt41.BI;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.InvalidClassException;
+import lombok.Getter;
+import org.apache.log4j.Logger;
+import ru.bstu.iitus.vt41.BI.Enums.ObjectType;
+import ru.bstu.iitus.vt41.BI.Exceptions.FactoryNotFound;
+import ru.bstu.iitus.vt41.BI.Implementation.*;
+
+import java.io.PrintStream;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.Scanner;
 
 public class Factory {
+    @Getter
+    static  final Logger logger = Logger.getLogger(Factory.class);
+
     private interface FactoryObjects {
-        public SportsEquipment create(Scanner scanner);
+        SportsEquipment create();
     }
 
     private enum Factorys implements FactoryObjects {
         FACTORYSBARBELL {
             @Override
-            public SportsEquipment create(Scanner scanner) {
-                System.out.print("Введите вес штанги: ");
-                SportsEquipment result = new Barbell();
-                result.init(scanner);
-                return result;
+            public SportsEquipment create() {
+                return new Barbell();
             }
         },
         FACTORYSTENNISBALL {
             @Override
-            public SportsEquipment create(Scanner scanner) {
-                System.out.print("Введите производителя теннисного мяча: ");
-                SportsEquipment result = new TennisBall();
-                result.init(scanner);
-                return result;
+            public SportsEquipment create() {
+                return new TennisBall();
             }
         },
         FACTORYSRACQUET {
             @Override
-            public SportsEquipment create(Scanner scanner) {
-                System.out.print("Введите производителя ракетки: ");
-                SportsEquipment result = new Racquet();
-                result.init(scanner);
-                return result;
+            public SportsEquipment create() {
+                return new Racquet();
             }
         },
         FACTORYSTHROWINGSPEAR {
             @Override
-            public SportsEquipment create(Scanner scanner) {
-                System.out.print("Введите вес метательного копья: ");
-                SportsEquipment result = new ThrowingSpear();
-                result.init(scanner);
-                return result;
+            public SportsEquipment create() {
+                return new ThrowingSpear();
             }
         },
         FACTORYSVOLLEYBALL {
-            public SportsEquipment create(Scanner scanner) {
-                System.out.print("Введите стоимость волейбольного мяча: ");
-                SportsEquipment result = new VolleyBall();
-                result.init(scanner);
-                return result;
+            public SportsEquipment create() {
+                return new VolleyBall();
             }
         },
         FACTORYSWEIGHT {
             @Override
-            public SportsEquipment create(Scanner scanner) {
-                System.out.print("Введите вес гири: ");
-                SportsEquipment result = new Weight();
-                result.init(scanner);
-                return result;
+            public SportsEquipment create() {
+                return new Weight();
             }
         }
     }
@@ -72,22 +60,45 @@ public class Factory {
     Dictionary<ObjectType, FactoryObjects> set = new Hashtable<ObjectType, FactoryObjects>();
 
     public Factory() {
-        set.put(Barbell.code, Factorys.FACTORYSBARBELL);
-        set.put(Racquet.code, Factorys.FACTORYSRACQUET);
-        set.put(ThrowingSpear.code, Factorys.FACTORYSTHROWINGSPEAR);
-        set.put(VolleyBall.code, Factorys.FACTORYSVOLLEYBALL);
-        set.put(Weight.code, Factorys.FACTORYSWEIGHT);
-        set.put(TennisBall.code, Factorys.FACTORYSTENNISBALL);
+        set.put(ObjectType.BARBELL, Factorys.FACTORYSBARBELL);
+        set.put(ObjectType.RACQUET, Factorys.FACTORYSRACQUET);
+        set.put(ObjectType.TROWINGSPEAR, Factorys.FACTORYSTHROWINGSPEAR);
+        set.put(ObjectType.VOLLEYBALL, Factorys.FACTORYSVOLLEYBALL);
+        set.put(ObjectType.WEIGHT, Factorys.FACTORYSWEIGHT);
+        set.put(ObjectType.TENNISBALL, Factorys.FACTORYSTENNISBALL);
+        // Ball.getTypeInfo().getObjectType() - подобного вызова вы никогда не увидете
+        // ибо java перегрузает, блин, не статические методы статическими
     }
 
-    public SportsEquipment create(ObjectType code, Scanner scanner) {
-        FactoryObjects factory = set.get(code);
-        if (factory != null)
-            return factory.create(scanner);
-        else return null;
+    public SportsEquipment create(ObjectType type, Scanner scanner) throws Exception {
+        FactoryObjects factory = set.get(type);
+        if (factory == null)
+            throw new FactoryNotFound(type);
+        SportsEquipment equipment = factory.create();
+        try {
+            equipment.init(scanner);
+        } catch (Exception ex) {
+            logger.error("Ошибка при инициализации объекта");
+            throw ex;
+        }
+        return equipment;
     }
 
-    public SportsEquipment create(ObjectType code) {
+    public SportsEquipment create(ObjectType type, Scanner scanner, PrintStream out) throws Exception {
+        FactoryObjects factory = set.get(type);
+        if (factory == null)
+            throw new FactoryNotFound(type);
+        SportsEquipment equipment = factory.create();
+        try {
+            equipment.init(scanner, out);
+        } catch (Exception ex) {
+            logger.error("Ошибка при инициализации объекта");
+            throw ex;
+        }
+        return equipment;
+    }
+
+    public SportsEquipment create(ObjectType code) throws Exception {
         return create(code, new Scanner(System.in));
     }
 }
