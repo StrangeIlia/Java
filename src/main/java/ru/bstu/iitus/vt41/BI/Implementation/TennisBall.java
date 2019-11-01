@@ -36,7 +36,7 @@ public final class TennisBall extends Ball {
     }
 
     void checkValue() throws IllegalArgumentException {
-        if (producer == "")
+        if (producer.equals(""))
             throw new IllegalArgumentException();
     }
 

@@ -22,7 +22,7 @@ public abstract class TrainingEquipment extends SportsEquipment {
     }
 
     void checkValue() throws IllegalArgumentException {
-        if (owner == "")
+        if (owner.equals(""))
             throw new IllegalArgumentException();
     }
 

@@ -39,7 +39,7 @@ public final class Racquet extends SportsEquipment {
     }
 
     void checkValue() throws IllegalArgumentException {
-        if (producer == "")
+        if (producer.equals(""))
             throw new IllegalArgumentException();
     }
 
