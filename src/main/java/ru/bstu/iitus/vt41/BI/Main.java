@@ -1,19 +1,16 @@
 package ru.bstu.iitus.vt41.BI;
 
-import lombok.Getter;
-import org.apache.log4j.Logger;
-import ru.bstu.iitus.vt41.BI.enums.TypeObjects;
+import lombok.extern.log4j.Log4j2;
 import ru.bstu.iitus.vt41.BI.enums.SportType;
+import ru.bstu.iitus.vt41.BI.enums.TypeObjects;
 import ru.bstu.iitus.vt41.BI.exceptions.FactoryNotFound;
 import ru.bstu.iitus.vt41.BI.exceptions.ObjectsNoFound;
 import ru.bstu.iitus.vt41.BI.utils.Utils;
 
 import java.util.*;
 
+@Log4j2
 public class Main {
-    @Getter
-    static final Logger logger = Logger.getLogger(Main.class);
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Factory factory = new Factory();
@@ -24,7 +21,7 @@ public class Main {
             inventorySize = scanner.nextInt();
             if (inventorySize <= 0) {
                 System.out.println("Указан неверный размер инвентаря, введите его заново");
-                logger.error("Ошибка: не верно введен размер инвенторя");
+                log.error("Ошибка: не верно введен размер инвенторя");
             } else break;
         }
 
@@ -45,12 +42,12 @@ public class Main {
                     id = scanner.nextInt();
                 } catch (InputMismatchException ex) {
                     System.out.println("Пожалуйста, введите целое число ");
-                    logger.warn("Пользователь не знает, чего он хочет");
+                    log.warn("Пользователь не знает, чего он хочет");
                     continue;
                 }
                 if (TypeObjects.valueOf(id) == TypeObjects.UNDEFINED) {
                     System.out.println("Неверный код предмета, введите код снова: ");
-                    logger.warn("Пользователь ввел неверный код объекта (" + id + ")");
+                    log.warn("Пользователь ввел неверный код объекта (" + id + ")");
                     continue;
                 }
                 while (true) {
@@ -60,12 +57,12 @@ public class Main {
                     } catch (FactoryNotFound notFound) {
                         System.out.println("Ошибка, не был найден конструктор объекта."
                                 + " Выберите другой тип или обратитесь к разработчику за исправлениями.");
-                        logger.error("Ошибка: не была найдена фабрика для объекта типа \""
+                        log.error("Ошибка: не была найдена фабрика для объекта типа \""
                                 + notFound.getType().getTypeName() + "\"");
                         break;
                     } catch (Exception ex) {
                         System.out.println("Ошибка при инициализации объекта. Введите данные повторно.");
-                        logger.warn("Пользователь не верно ввел данные при инициализации объекта типа \""
+                        log.warn("Пользователь не верно ввел данные при инициализации объекта типа \""
                                 + TypeObjects.valueOf(id).getTypeName() + "\"");
                         if (ex instanceof InputMismatchException)
                             scanner.next();
@@ -87,7 +84,7 @@ public class Main {
                 return;
             else {
                 System.out.println("Не корректный ответ. Пожалуйста повторите (да/нет): ");
-                logger.warn("Пользователь не корректно ответил на вопрос");
+                log.warn("Пользователь не корректно ответил на вопрос");
             }
         }
 
@@ -105,13 +102,13 @@ public class Main {
                 id = scanner.nextInt();
             } catch (InputMismatchException ex) {
                 System.out.println("Пожалуйста, введите целое число ");
-                logger.warn("Пользователь не знает, чего он хочет");
+                log.warn("Пользователь не знает, чего он хочет");
                 continue;
             }
 
             if (SportType.valueOf(id) == SportType.UNDEFINED) {
                 System.out.println("Неверный id типа спорта, введите id снова");
-                logger.warn("Пользователь ввел неверный код типа спорта (" + id + ")");
+                log.warn("Пользователь ввел неверный код типа спорта (" + id + ")");
             } else {
                 type = SportType.valueOf(id);
                 break;
@@ -124,7 +121,7 @@ public class Main {
                 System.out.println(e.toString());
         } catch (ObjectsNoFound noFound) {
             System.out.println("Не было найдено объектов, относящихся к типу спорта " + noFound.getSportType().getTypeName());
-            logger.info(noFound.getMessage());
+            log.info(noFound.getMessage());
         }
     }
 }

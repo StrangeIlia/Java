@@ -1,7 +1,6 @@
 package ru.bstu.iitus.vt41.BI;
 
-import lombok.Getter;
-import org.apache.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import ru.bstu.iitus.vt41.BI.enums.TypeObjects;
 import ru.bstu.iitus.vt41.BI.exceptions.FactoryNotFound;
 import ru.bstu.iitus.vt41.BI.implementation.*;
@@ -11,10 +10,8 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.Scanner;
 
+@Log4j2
 public class Factory {
-    @Getter
-    static  final Logger logger = Logger.getLogger(Factory.class);
-
     private interface FactoryObjects {
         SportsEquipment create();
     }
@@ -78,7 +75,7 @@ public class Factory {
         try {
             equipment.init(scanner);
         } catch (Exception ex) {
-            logger.error("Ошибка при инициализации объекта");
+            log.error("Ошибка при инициализации объекта");
             throw ex;
         }
         return equipment;
@@ -92,7 +89,7 @@ public class Factory {
         try {
             equipment.init(scanner, out);
         } catch (Exception ex) {
-            logger.error("Ошибка при инициализации объекта");
+            log.error("Ошибка при инициализации объекта");
             throw ex;
         }
         return equipment;

@@ -1,12 +1,11 @@
 package ru.bstu.iitus.vt41.BI.implementation;
 
 import lombok.AccessLevel;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import ru.bstu.iitus.vt41.BI.enums.TypeObjects;
 import ru.bstu.iitus.vt41.BI.TrainingEquipment;
 import ru.bstu.iitus.vt41.BI.enums.SportType;
+import ru.bstu.iitus.vt41.BI.enums.TypeObjects;
 import ru.bstu.iitus.vt41.BI.utils.TypeInfo;
 
 import java.io.PrintStream;
