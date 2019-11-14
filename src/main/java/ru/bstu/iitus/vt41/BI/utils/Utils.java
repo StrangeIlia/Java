@@ -1,8 +1,8 @@
-package ru.bstu.iitus.vt41.BI.Utils;
+package ru.bstu.iitus.vt41.BI.utils;
 
 
-import ru.bstu.iitus.vt41.BI.Enums.SportType;
-import ru.bstu.iitus.vt41.BI.Exceptions.ObjectsNoFound;
+import ru.bstu.iitus.vt41.BI.enums.SportType;
+import ru.bstu.iitus.vt41.BI.exceptions.ObjectsNoFound;
 import ru.bstu.iitus.vt41.BI.SportsEquipment;
 
 import java.util.ArrayList;

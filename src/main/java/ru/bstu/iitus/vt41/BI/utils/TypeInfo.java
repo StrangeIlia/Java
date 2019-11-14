@@ -1,9 +1,8 @@
-package ru.bstu.iitus.vt41.BI.Utils;
+package ru.bstu.iitus.vt41.BI.utils;
 
 import lombok.Data;
-import lombok.Setter;
-import ru.bstu.iitus.vt41.BI.Enums.ObjectType;
-import ru.bstu.iitus.vt41.BI.Enums.SportType;
+import ru.bstu.iitus.vt41.BI.enums.TypeObjects;
+import ru.bstu.iitus.vt41.BI.enums.SportType;
 
 /*
 Пришлось выносить данный класс за SportEquipment поскольку Idea утверждал,
@@ -12,11 +11,11 @@ import ru.bstu.iitus.vt41.BI.Enums.SportType;
 
 @Data
 public class TypeInfo {
-    private ObjectType objectType;
+    private TypeObjects typeObjects;
     private SportType sportType;
 
     public TypeInfo() {
-        objectType = ObjectType.UNDEFINED;
+        typeObjects = TypeObjects.UNDEFINED;
         sportType = SportType.UNDEFINED;
     }
 }

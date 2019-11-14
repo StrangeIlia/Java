@@ -1,19 +1,20 @@
-package ru.bstu.iitus.vt41.BI.Implementation;
+package ru.bstu.iitus.vt41.BI.implementation;
 
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import ru.bstu.iitus.vt41.BI.Enums.ObjectType;
-import ru.bstu.iitus.vt41.BI.TrainingEquipment;
-import ru.bstu.iitus.vt41.BI.Enums.SportType;
-import ru.bstu.iitus.vt41.BI.Utils.TypeInfo;
+import ru.bstu.iitus.vt41.BI.enums.TypeObjects;
+import ru.bstu.iitus.vt41.BI.enums.SportType;
+import ru.bstu.iitus.vt41.BI.SportsEquipment;
+import ru.bstu.iitus.vt41.BI.utils.TypeInfo;
 
 import java.io.PrintStream;
 import java.util.Scanner;
 
-// Штанга
-@Data
-public final class Barbell extends TrainingEquipment {
+@Getter
+@EqualsAndHashCode
+public final class ThrowingSpear extends SportsEquipment {
     /*
     Чтобы объект хранящий данные о типе был уникален, мы создаем static переменную,
     к которой имеют доступ все объекты данного класса
@@ -23,43 +24,41 @@ public final class Barbell extends TrainingEquipment {
 
     static {
         typeInfo = new TypeInfo();
-        typeInfo.setObjectType(ObjectType.BARBELL);
-        typeInfo.setSportType(SportType.BARBELL);
+        typeInfo.setTypeObjects(TypeObjects.TROWINGSPEAR);
+        typeInfo.setSportType(SportType.JAVELINTHROWING);
     }
 
     double weight = -1;
 
-    public Barbell() {
+    public ThrowingSpear() {
         super(typeInfo);
     }
 
     @Override
     public boolean isInit() {
-        return weight > 0 && super.isInit();
+        return weight > 0;
     }
 
-    void checkValue() throws  IllegalArgumentException{
-        if(weight <= 0)
+    void checkValue() throws IllegalArgumentException {
+        if (weight <= 0)
             throw new IllegalArgumentException();
     }
 
-    @Override
+    // Метод, чтобы не засорять консоль
     public void init(Scanner scanner) {
-        super.init(scanner);
         weight = scanner.nextDouble();
         checkValue();
     }
 
-    @Override
+    // Метод, для ручного ввода значений
     public void init(Scanner scanner, PrintStream out) {
-        super.init(scanner, out);
-        out.print("Введите вес штанги: ");
+        out.print("Введите вес метательного копья: ");
         weight = scanner.nextDouble();
         checkValue();
     }
 
     @Override
     public String toString() {
-        return "Это штанга весом " + weight + ", которой владеет " + owner;
+        return "Это метательное копье с весом " + weight;
     }
 }

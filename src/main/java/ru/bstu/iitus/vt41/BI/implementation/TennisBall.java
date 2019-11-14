@@ -1,19 +1,18 @@
-package ru.bstu.iitus.vt41.BI.Implementation;
+package ru.bstu.iitus.vt41.BI.implementation;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import ru.bstu.iitus.vt41.BI.Enums.ObjectType;
-import ru.bstu.iitus.vt41.BI.Enums.SportType;
-import ru.bstu.iitus.vt41.BI.SportsEquipment;
-import ru.bstu.iitus.vt41.BI.Utils.TypeInfo;
+import lombok.*;
+import ru.bstu.iitus.vt41.BI.Ball;
+import ru.bstu.iitus.vt41.BI.enums.TypeObjects;
+import ru.bstu.iitus.vt41.BI.enums.SportType;
+import ru.bstu.iitus.vt41.BI.utils.TypeInfo;
 
 import java.io.PrintStream;
 import java.util.Scanner;
 
-// Теннисная ракетка
-@Data
-public final class Racquet extends SportsEquipment {
+// Теннисный мяч
+@Getter
+@EqualsAndHashCode
+public final class TennisBall extends Ball {
     /*
     Чтобы объект хранящий данные о типе был уникален, мы создаем static переменную,
     к которой имеют доступ все объекты данного класса
@@ -23,19 +22,15 @@ public final class Racquet extends SportsEquipment {
 
     static {
         typeInfo = new TypeInfo();
-        typeInfo.setObjectType(ObjectType.RACQUET);
+        typeInfo.setTypeObjects(TypeObjects.TENNISBALL);
         typeInfo.setSportType(SportType.TENNIS);
     }
 
+    @Setter
     String producer = "";
 
-    public Racquet() {
+    public TennisBall() {
         super(typeInfo);
-    }
-
-    @Override
-    public boolean isInit() {
-        return producer != "";
     }
 
     void checkValue() throws IllegalArgumentException {
@@ -45,19 +40,26 @@ public final class Racquet extends SportsEquipment {
 
     // Метод, чтобы не засорять консоль
     public void init(Scanner scanner) {
+        super.init(scanner);
         producer = scanner.next();
         checkValue();
     }
 
     // Метод, для ручного ввода значений
     public void init(Scanner scanner, PrintStream out) {
-        out.print("Введите производителя ракетки: ");
+        super.init(scanner, out);
+        out.print("Введите производителя тенисного шарика: ");
         producer = scanner.next();
         checkValue();
     }
 
     @Override
+    public boolean isInit() {
+        return producer != "" && super.isInit();
+    }
+
+    @Override
     public String toString() {
-        return "Это теннисная ракетка, которую производит фирма " + producer;
+        return "Это теннисный мяч радиусом в " + radius + ", который произведен фирмой " + producer;
     }
 }

@@ -1,16 +1,17 @@
 package ru.bstu.iitus.vt41.BI;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import ru.bstu.iitus.vt41.BI.Enums.ObjectType;
-import ru.bstu.iitus.vt41.BI.Enums.SportType;
-import ru.bstu.iitus.vt41.BI.Implementation.Barbell;
-import ru.bstu.iitus.vt41.BI.Utils.TypeInfo;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import ru.bstu.iitus.vt41.BI.utils.TypeInfo;
 
-import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-@Data
+@Getter
+@AllArgsConstructor
+@EqualsAndHashCode
 public abstract class SportsEquipment {
     /*
     Вся информация о свойствах, характерных ТИПУ (ПОДТИПУ) объекта вынесена за класс.
@@ -19,10 +20,6 @@ public abstract class SportsEquipment {
     о своем подтипе
      */
     private TypeInfo typeInfo;
-
-    public SportsEquipment(TypeInfo typeInfo) {
-        this.typeInfo = typeInfo;
-    }
 
     // Метод проверки инициализации
     public abstract boolean isInit();

@@ -1,4 +1,4 @@
-package ru.bstu.iitus.vt41.BI.Exceptions;
+package ru.bstu.iitus.vt41.BI.exceptions;
 
 import lombok.Getter;
 import ru.bstu.iitus.vt41.BI.SportsEquipment;

@@ -1,19 +1,20 @@
-package ru.bstu.iitus.vt41.BI.Implementation;
+package ru.bstu.iitus.vt41.BI.implementation;
 
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import ru.bstu.iitus.vt41.BI.Ball;
-import ru.bstu.iitus.vt41.BI.Enums.ObjectType;
-import ru.bstu.iitus.vt41.BI.Enums.SportType;
-import ru.bstu.iitus.vt41.BI.Utils.TypeInfo;
+import ru.bstu.iitus.vt41.BI.enums.TypeObjects;
+import ru.bstu.iitus.vt41.BI.enums.SportType;
+import ru.bstu.iitus.vt41.BI.TrainingEquipment;
+import ru.bstu.iitus.vt41.BI.utils.TypeInfo;
 
-import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-@Data
-public final class VolleyBall extends Ball {
+@Getter
+@EqualsAndHashCode
+public final class Weight extends TrainingEquipment {
     /*
     Чтобы объект хранящий данные о типе был уникален, мы создаем static переменную,
     к которой имеют доступ все объекты данного класса
@@ -23,43 +24,43 @@ public final class VolleyBall extends Ball {
 
     static {
         typeInfo = new TypeInfo();
-        typeInfo.setObjectType(ObjectType.VOLLEYBALL);
-        typeInfo.setSportType(SportType.VOLLEYBALL);
+        typeInfo.setTypeObjects(TypeObjects.WEIGHT);
+        typeInfo.setSportType(SportType.WEIGHT);
     }
 
-    double cost = 0;
+    double weight = -1;
 
-    public VolleyBall() {
+    public Weight() {
         super(typeInfo);
     }
 
     void checkValue() throws IllegalArgumentException {
-        if (cost <= 0)
+        if (weight <= 0)
             throw new IllegalArgumentException();
     }
 
     // Метод, чтобы не засорять консоль
     public void init(Scanner scanner) {
         super.init(scanner);
-        cost = scanner.nextDouble();
+        weight = scanner.nextDouble();
         checkValue();
     }
 
     // Метод, для ручного ввода значений
     public void init(Scanner scanner, PrintStream out) {
         super.init(scanner, out);
-        out.print("Введите стоимость волейбольного мяча: ");
-        cost = scanner.nextDouble();
+        out.print("Введите вес гири: ");
+        weight = scanner.nextDouble();
         checkValue();
     }
 
     @Override
     public boolean isInit() {
-        return cost > 0 && super.isInit();
+        return weight > 0 && super.isInit();
     }
 
     @Override
     public String toString() {
-        return "Это волейбольный мяч стоимостью " + cost + " и радиусом " + radius;
+        return "Это гиря весом " + weight + ", которой владеет " + owner;
     }
 }

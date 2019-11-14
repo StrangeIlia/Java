@@ -1,13 +1,16 @@
 package ru.bstu.iitus.vt41.BI;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.Setter;
-import ru.bstu.iitus.vt41.BI.Utils.TypeInfo;
+import ru.bstu.iitus.vt41.BI.utils.TypeInfo;
 
 import java.io.PrintStream;
 import java.util.Scanner;
 
-@Data
+@Getter
+@EqualsAndHashCode
 public abstract class TrainingEquipment extends SportsEquipment {
     @Setter
     protected String owner = "";

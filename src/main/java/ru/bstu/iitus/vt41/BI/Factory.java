@@ -2,9 +2,9 @@ package ru.bstu.iitus.vt41.BI;
 
 import lombok.Getter;
 import org.apache.log4j.Logger;
-import ru.bstu.iitus.vt41.BI.Enums.ObjectType;
-import ru.bstu.iitus.vt41.BI.Exceptions.FactoryNotFound;
-import ru.bstu.iitus.vt41.BI.Implementation.*;
+import ru.bstu.iitus.vt41.BI.enums.TypeObjects;
+import ru.bstu.iitus.vt41.BI.exceptions.FactoryNotFound;
+import ru.bstu.iitus.vt41.BI.implementation.*;
 
 import java.io.PrintStream;
 import java.util.Dictionary;
@@ -57,20 +57,20 @@ public class Factory {
         }
     }
 
-    Dictionary<ObjectType, FactoryObjects> set = new Hashtable<ObjectType, FactoryObjects>();
+    Dictionary<TypeObjects, FactoryObjects> set = new Hashtable<TypeObjects, FactoryObjects>();
 
     public Factory() {
-        set.put(ObjectType.BARBELL, Factorys.FACTORYSBARBELL);
-        set.put(ObjectType.RACQUET, Factorys.FACTORYSRACQUET);
-        set.put(ObjectType.TROWINGSPEAR, Factorys.FACTORYSTHROWINGSPEAR);
-        set.put(ObjectType.VOLLEYBALL, Factorys.FACTORYSVOLLEYBALL);
-        set.put(ObjectType.WEIGHT, Factorys.FACTORYSWEIGHT);
-        set.put(ObjectType.TENNISBALL, Factorys.FACTORYSTENNISBALL);
+        set.put(TypeObjects.BARBELL, Factorys.FACTORYSBARBELL);
+        set.put(TypeObjects.RACQUET, Factorys.FACTORYSRACQUET);
+        set.put(TypeObjects.TROWINGSPEAR, Factorys.FACTORYSTHROWINGSPEAR);
+        set.put(TypeObjects.VOLLEYBALL, Factorys.FACTORYSVOLLEYBALL);
+        set.put(TypeObjects.WEIGHT, Factorys.FACTORYSWEIGHT);
+        set.put(TypeObjects.TENNISBALL, Factorys.FACTORYSTENNISBALL);
         // Ball.getTypeInfo().getObjectType() - подобного вызова вы никогда не увидете
         // ибо java перегрузает, блин, не статические методы статическими
     }
 
-    public SportsEquipment create(ObjectType type, Scanner scanner) throws Exception {
+    public SportsEquipment create(TypeObjects type, Scanner scanner) throws Exception {
         FactoryObjects factory = set.get(type);
         if (factory == null)
             throw new FactoryNotFound(type);
@@ -84,7 +84,7 @@ public class Factory {
         return equipment;
     }
 
-    public SportsEquipment create(ObjectType type, Scanner scanner, PrintStream out) throws Exception {
+    public SportsEquipment create(TypeObjects type, Scanner scanner, PrintStream out) throws Exception {
         FactoryObjects factory = set.get(type);
         if (factory == null)
             throw new FactoryNotFound(type);
@@ -98,7 +98,7 @@ public class Factory {
         return equipment;
     }
 
-    public SportsEquipment create(ObjectType code) throws Exception {
+    public SportsEquipment create(TypeObjects code) throws Exception {
         return create(code, new Scanner(System.in));
     }
 }

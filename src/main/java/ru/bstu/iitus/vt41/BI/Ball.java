@@ -1,13 +1,15 @@
 package ru.bstu.iitus.vt41.BI;
 
 import lombok.Data;
-import lombok.Setter;
-import ru.bstu.iitus.vt41.BI.Utils.TypeInfo;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import ru.bstu.iitus.vt41.BI.utils.TypeInfo;
 
 import java.io.PrintStream;
 import java.util.Scanner;
 
-@Data
+@Getter
+@EqualsAndHashCode
 public abstract class Ball extends SportsEquipment {
     protected double radius = -1;
 
@@ -40,6 +42,6 @@ public abstract class Ball extends SportsEquipment {
 
     @Override
     public String toString() {
-        return "Это мяч типа " + getTypeInfo().getObjectType().typeName() + " радиусом в " + radius;
+        return "Это мяч типа " + getTypeInfo().getTypeObjects().getTypeName() + " радиусом в " + radius;
     }
 }

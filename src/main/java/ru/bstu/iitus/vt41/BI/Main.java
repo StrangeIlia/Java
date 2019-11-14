@@ -2,11 +2,11 @@ package ru.bstu.iitus.vt41.BI;
 
 import lombok.Getter;
 import org.apache.log4j.Logger;
-import ru.bstu.iitus.vt41.BI.Enums.ObjectType;
-import ru.bstu.iitus.vt41.BI.Enums.SportType;
-import ru.bstu.iitus.vt41.BI.Exceptions.FactoryNotFound;
-import ru.bstu.iitus.vt41.BI.Exceptions.ObjectsNoFound;
-import ru.bstu.iitus.vt41.BI.Utils.Utils;
+import ru.bstu.iitus.vt41.BI.enums.TypeObjects;
+import ru.bstu.iitus.vt41.BI.enums.SportType;
+import ru.bstu.iitus.vt41.BI.exceptions.FactoryNotFound;
+import ru.bstu.iitus.vt41.BI.exceptions.ObjectsNoFound;
+import ru.bstu.iitus.vt41.BI.utils.Utils;
 
 import java.util.*;
 
@@ -31,9 +31,9 @@ public class Main {
         List<SportsEquipment> inventory = new ArrayList<SportsEquipment>(inventorySize);
 
         System.out.println("Id предметов: ");
-        Collection<ObjectType> types = ObjectType.getAllEnums();
-        for (ObjectType type : types)
-            System.out.println("    " + type.getIndex() + ") " + type.typeName());
+        Collection<TypeObjects> types = Arrays.asList(TypeObjects.values());
+        for (TypeObjects type : types)
+            System.out.println("    " + type.getIndex() + ") " + type.getTypeName());
 
 
         for (int i = 0; i != inventorySize; ++i) {
@@ -48,25 +48,25 @@ public class Main {
                     logger.warn("Пользователь не знает, чего он хочет");
                     continue;
                 }
-                if (ObjectType.valueOf(id) == ObjectType.UNDEFINED) {
+                if (TypeObjects.valueOf(id) == TypeObjects.UNDEFINED) {
                     System.out.println("Неверный код предмета, введите код снова: ");
                     logger.warn("Пользователь ввел неверный код объекта (" + id + ")");
                     continue;
                 }
                 while (true) {
                     try {
-                        newEq = factory.create(ObjectType.valueOf(id), scanner, System.out);
+                        newEq = factory.create(TypeObjects.valueOf(id), scanner, System.out);
                         break;
                     } catch (FactoryNotFound notFound) {
                         System.out.println("Ошибка, не был найден конструктор объекта."
                                 + " Выберите другой тип или обратитесь к разработчику за исправлениями.");
                         logger.error("Ошибка: не была найдена фабрика для объекта типа \""
-                                + notFound.getType().typeName() + "\"");
+                                + notFound.getType().getTypeName() + "\"");
                         break;
                     } catch (Exception ex) {
                         System.out.println("Ошибка при инициализации объекта. Введите данные повторно.");
                         logger.warn("Пользователь не верно ввел данные при инициализации объекта типа \""
-                                + ObjectType.valueOf(id).typeName() + "\"");
+                                + TypeObjects.valueOf(id).getTypeName() + "\"");
                         if (ex instanceof InputMismatchException)
                             scanner.next();
                     }
@@ -91,10 +91,10 @@ public class Main {
             }
         }
 
-        Collection<SportType> sportTypes = SportType.getAllEnums();
+        Collection<SportType> sportTypes = Arrays.asList(SportType.values());
         System.out.print("Возможные id вида спорта: ");
         for (SportType sportType : sportTypes)
-            System.out.println("    " + sportType.getIndex() + ") " + sportType.typeName());
+            System.out.println("    " + sportType.getIndex() + ") " + sportType.getTypeName());
 
 
         SportType type = SportType.UNDEFINED;
@@ -123,7 +123,7 @@ public class Main {
             for (SportsEquipment e : result)
                 System.out.println(e.toString());
         } catch (ObjectsNoFound noFound) {
-            System.out.println("Не было найдено объектов, относящихся к типу спорта " + noFound.getSportType().typeName());
+            System.out.println("Не было найдено объектов, относящихся к типу спорта " + noFound.getSportType().getTypeName());
             logger.info(noFound.getMessage());
         }
     }

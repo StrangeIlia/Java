@@ -1,18 +1,21 @@
-package ru.bstu.iitus.vt41.BI.Implementation;
+package ru.bstu.iitus.vt41.BI.implementation;
 
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import ru.bstu.iitus.vt41.BI.Enums.ObjectType;
-import ru.bstu.iitus.vt41.BI.Enums.SportType;
+import ru.bstu.iitus.vt41.BI.enums.TypeObjects;
+import ru.bstu.iitus.vt41.BI.enums.SportType;
 import ru.bstu.iitus.vt41.BI.SportsEquipment;
-import ru.bstu.iitus.vt41.BI.Utils.TypeInfo;
+import ru.bstu.iitus.vt41.BI.utils.TypeInfo;
 
 import java.io.PrintStream;
 import java.util.Scanner;
 
-@Data
-public final class ThrowingSpear extends SportsEquipment {
+// Теннисная ракетка
+@Getter
+@EqualsAndHashCode
+public final class Racquet extends SportsEquipment {
     /*
     Чтобы объект хранящий данные о типе был уникален, мы создаем static переменную,
     к которой имеют доступ все объекты данного класса
@@ -22,41 +25,41 @@ public final class ThrowingSpear extends SportsEquipment {
 
     static {
         typeInfo = new TypeInfo();
-        typeInfo.setObjectType(ObjectType.TROWINGSPEAR);
-        typeInfo.setSportType(SportType.JAVELINTHROWING);
+        typeInfo.setTypeObjects(TypeObjects.RACQUET);
+        typeInfo.setSportType(SportType.TENNIS);
     }
 
-    double weight = -1;
+    String producer = "";
 
-    public ThrowingSpear() {
+    public Racquet() {
         super(typeInfo);
     }
 
     @Override
     public boolean isInit() {
-        return weight > 0;
+        return producer != "";
     }
 
     void checkValue() throws IllegalArgumentException {
-        if (weight <= 0)
+        if (producer.equals(""))
             throw new IllegalArgumentException();
     }
 
     // Метод, чтобы не засорять консоль
     public void init(Scanner scanner) {
-        weight = scanner.nextDouble();
+        producer = scanner.next();
         checkValue();
     }
 
     // Метод, для ручного ввода значений
     public void init(Scanner scanner, PrintStream out) {
-        out.print("Введите вес метательного копья: ");
-        weight = scanner.nextDouble();
+        out.print("Введите производителя ракетки: ");
+        producer = scanner.next();
         checkValue();
     }
 
     @Override
     public String toString() {
-        return "Это метательное копье с весом " + weight;
+        return "Это теннисная ракетка, которую производит фирма " + producer;
     }
 }
